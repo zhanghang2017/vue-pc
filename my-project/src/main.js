@@ -2,9 +2,35 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import VRouter from 'vue-router'
+import Apple from './components/Apple.vue'
+import Orange from './components/Orange.vue'
+import AppleDetails from './components/AppleDetails.vue'
 
-Vue.config.productionTip = false
+Vue.use(VRouter)
+
+let router = new VRouter({
+  routes: [
+    {
+      path: '/apple',
+      component: Apple,
+      children: [
+        {
+          path: 'details',
+          component: AppleDetails
+        }
+      ]
+    },
+    {
+      path: '/orange',
+      component: Orange
+    },
+    {
+      path: '/',
+      redirect: '/apple'
+    }
+  ]
+})
 
 /* eslint-disable no-new */
 new Vue({
