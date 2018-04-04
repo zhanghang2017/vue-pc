@@ -16,8 +16,12 @@ let store = new Vuex.Store({
     totalPrice: 0
   },
   mutations: {
-    increment: (state, price) => state.totalPrice += price, 
-    decrement: (state, price) => state.totalPrice -= price,
+    increment (state, price) {
+      state.totalPrice += price
+    },
+    decrement (state, price) {
+      state.totalPrice -= price
+    }
   }
 })
 let router = new VRouter({
