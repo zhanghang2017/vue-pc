@@ -1,12 +1,17 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+    {{ this.$store.state.totalPrice }}
     <transition name="fade">
-        <router-view></router-view>
+        <router-view name="Apple"></router-view>
     </transition>
-    <router-link :to='{path:"/apple",param:{"color":"red"}}'>苹果</router-link>
-    <router-link :to='{path:"/orange"}'>橘子</router-link>
-     <router-link :to='{path:"/apple/details"}'>详细苹果</router-link>
+    <transition name="fade">
+        <router-view name="Orange"></router-view>
+    </transition>
+     <router-view ></router-view>
+    <router-link :to='{path:"/apple"}' tag='button'>苹果</router-link>
+    <router-link :to='{path:"/orange"}'  tag='button'>橘子</router-link>
+    <router-link :to='{path:"/apple/details"}'  tag='button'>详细苹果</router-link>
   </div>
 </template>
 

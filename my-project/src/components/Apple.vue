@@ -1,6 +1,5 @@
 <template>
   <div class='Apple'>
-      {{$route.params}}
       <p v-text='name'></p>
       <router-view></router-view>
   </div>

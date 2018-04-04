@@ -6,14 +6,28 @@ import VRouter from 'vue-router'
 import Apple from './components/Apple.vue'
 import Orange from './components/Orange.vue'
 import AppleDetails from './components/AppleDetails.vue'
+import Vuex from 'vuex'
 
 Vue.use(VRouter)
+Vue.use(Vuex)
 
+let store = new Vuex.Store({
+  state: {
+    totalPrice: 0
+  },
+  mutations: {
+    increment: (state, price) => state.totalPrice += price, 
+    decrement: (state, price) => state.totalPrice -= price,
+  }
+})
 let router = new VRouter({
   routes: [
     {
       path: '/apple',
-      component: Apple,
+      components: {
+        Apple,
+        Orange
+      },
       children: [
         {
           path: 'details',
@@ -36,6 +50,7 @@ let router = new VRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
