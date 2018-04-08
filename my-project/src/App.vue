@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    {{ this.$store.state.totalPrice }}
+    {{ this.$store.state.VuexModel.totalPrice }}
+    {{ this.$store.state.VuexModel2.totalPrice }}
     <transition name="fade">
         <router-view name="Apple"></router-view>
     </transition>
@@ -12,12 +13,23 @@
     <router-link :to='{path:"/apple"}' tag='button'>苹果</router-link>
     <router-link :to='{path:"/orange"}'  tag='button'>橘子</router-link>
     <router-link :to='{path:"/apple/details"}'  tag='button'>详细苹果</router-link>
+    <button @click="add">vuex actions plus</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      price: 10
+    }
+  },
+  methods: {
+    add () {
+      this.$store.dispatch('acIncre2', this.price)
+    }
+  }
 }
 </script>
 
