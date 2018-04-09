@@ -29,7 +29,21 @@
              <img :src="item" alt="">
           </el-carousel-item>
         </el-carousel>
-     </div>
+        <div class="index-board-list">
+            <div
+            class="index-board-item"
+            v-for="(item, index) in boardList"
+            :class="[{'line-last' : index % 2 !== 0}, 'index-board-' + item.id]" :key="index">
+              <div class="index-board-item-inner" >
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                <div class="index-board-button">
+                  <span @click="to(item)"   class="button" :class="{'saleout':item.saleout}">立即购买</span>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
      <div style="clear:both"></div>
   </div>
 </template>
@@ -38,46 +52,41 @@ import pic1 from '../assets/slideShow/pic1.jpg'
 import pic2 from '../assets/slideShow/pic2.jpg'
 import pic3 from '../assets/slideShow/pic3.jpg'
 import pic4 from '../assets/slideShow/pic4.jpg'
+import API from '../api/api'
 export default {
+  created () {
+    API.getNewList(this, {id: 1}).then((response) => {
+      this.newsList = response.body
+    }, (err) => {
+      console.log(err)
+    })
+    API.getProductList(this, {id: 2}).then((response) => {
+      this.productList = response.body
+    }, (err) => {
+      console.log(err)
+    })
+    API.getBoardList(this, {id: 3}).then((response) => {
+      this.boardList = response.body
+    }, (err) => {
+      console.log(err)
+    })
+  },
   data () {
     return {
       newsList: [],
-      slider: [pic1,pic2,pic3,pic4],
-      productList: {
-        pc: {
-          title: 'PC产品',
-          list: [
-            {
-              name: '数据统计',
-              url: 'http://starcraft.com'
-            },
-            {
-              name: '数据预测',
-              url: 'http://warcraft.com'
-            },
-            {
-              name: '流量分析',
-              url: 'http://overwatch.com',
-              hot: true
-            }
-          ]
-        },
-        app: {
-          title: '手机应用类',
-          last: true,
-          list: [
-            {
-              name: '91助手',
-              url: 'http://weixin.com'
-            },
-            {
-              name: '产品助手',
-              url: 'http://twitter.com',
-              hot: true
-            }
-          ]
-        }
+      boardList: [],
+      slider: [pic1, pic2, pic3, pic4],
+      productList: {}
+    }
+  },
+  methods: {
+    to (item) {
+      let { $router } = this
+      if (item.saleout) {
+        alert('已经售完')
+        return false
       }
+      $router.push({'path': 'details/' + item.toKey})
     }
   }
 }
@@ -97,6 +106,9 @@ export default {
 }
 .index-left-block .hr {
   margin-bottom: 20px;
+  height: 1px;
+  padding: 0 20px;
+  background: #797979;
 }
 .index-left-block h2 {
   background: #4fc08d;
@@ -115,13 +127,73 @@ export default {
 .index-left-block li {
   padding: 5px;
 }
+.index-right {
+  margin: 15px;
+  float: right;
+  width: 57%;
+}
+.index-board-list {
+  overflow: hidden;
+  margin-top: 20px
+}
+.index-board-item {
+  float: left;
+  width:285px;
+  background: #fff;
+  box-shadow: 0 0 1px #ddd;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  margin-right: 26px
+}
+.index-board-item-inner {
+  min-height: 125px;
+  padding-left: 120px;
+}
+.index-board-car .index-board-item-inner{
+  background: url(../assets/images/1.png) no-repeat;
+}
+.index-board-loud .index-board-item-inner{
+  background: url(../assets/images/2.png) no-repeat;
+}
+.index-board-earth .index-board-item-inner{
+  background: url(../assets/images/3.png) no-repeat;
+}
+.index-board-hill .index-board-item-inner{
+  background: url(../assets/images/4.png) no-repeat;
+}
+.index-board-item h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 15px;
+}
+.line-last {
+  margin-right: 0!important;
+}
+.index-board-button {
+  margin-top: 20px;
+}
+.button{
+  background: #4EC390;
+  color: #ffffff;
+  padding: 5px 10px;
+  cursor: pointer
+}
+.saleout{
+  background: #797979;
+}
+.lastest-news {
+  min-height: 512px;
+}
 .hot-tag {
   background: red;
   color: #fff;
 }
-.index-right {
-  margin: 15px;
-  float: right;
-  width: 50%;
+.new-item {
+  display: inline-block;
+  width: 230px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

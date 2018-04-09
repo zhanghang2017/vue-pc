@@ -6,9 +6,12 @@ import Layout from './components/Layout.vue'
 import 'element-ui/lib/theme-chalk/index.css'
 import IndexPage from './pages/IndexPage.vue'
 import VRouetr from 'vue-router'
+import VResource from 'vue-resource'
 
 Vue.use(ElementUI)
 Vue.use(VRouetr)
+Vue.use(VResource)
+
 let router = new VRouetr({
   routes: [
     {
