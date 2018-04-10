@@ -1,10 +1,10 @@
 <template>
     <div class="slider-box" @mouseover="clearTimeout" @mouseout="setTimeout">
           <transition name="fade-in">
-             <img v-show="show" :src="sliders[index].src" />
+             <img v-if="show" :src="sliders[index].src" />
           </transition>
            <transition  name="fade-out">
-             <img v-show="!show" :src="sliders[index].src" />
+             <img v-if="!show" :src="sliders[index].src" />
           </transition>
         <div class="slider-nav">
             <p v-text="sliders[index].title"></p>
@@ -29,27 +29,33 @@ export default {
     }
 
   },
+  computed: {
+    nextIndex () {
+      let _self = this
+      let lent = _self.sliders.length - 1
+      if (_self.index < lent) {
+        return _self.index + 1
+      } else {
+        return 0
+      }
+    }
+  },
   methods: {
     change (key) {
       this.show = false
       setTimeout(() => {
         this.show = true
+        this.index = key
       }, 10)
-      this.index = key
     },
     setTimeout () {
       if (!this.timeout) {
         clearTimeout(this.timeout)
       }
       let _self = this
-      let lent = _self.sliders.length - 1
       if (_self && !_self._isDestroyed) {
         this.timeout = setTimeout(() => {
-          if (_self.index < lent) {
-            this.index++
-          } else {
-            this.index = 0
-          }
+          this.change(this.nextIndex)
           this.setTimeout()
         }, this.time)
       }
@@ -78,6 +84,7 @@ export default {
 .slider-box {
   width: 600px;
   height: 300px;
+  overflow: hidden;
   position: relative;
 }
 .slider-box > img {
@@ -132,13 +139,11 @@ ul li {
   transition: all .5s ;
 }
 .fade-in-enter{
-  transform: translateX(590px);
+  transform: translateY(300px);
 }
 .fade-out-leave-active {
   transition: all .5s ;
   transform: translateX(-590px);
 }
-.fade-out-leave{
- /* transform: translateX(-590px); */
-}
+
 </style>
