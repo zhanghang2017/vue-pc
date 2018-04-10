@@ -24,11 +24,7 @@
       </div>
      </div>
      <div class="index-right">
-        <el-carousel trigger="click" height="300px">
-          <el-carousel-item v-for="item in slider" :key="item">
-             <img :src="item" alt="">
-          </el-carousel-item>
-        </el-carousel>
+        <slider :sliders="sliders.imgArr" :time="sliders.time"></slider>
         <div class="index-board-list">
             <div
             class="index-board-item"
@@ -53,7 +49,12 @@ import pic2 from '../assets/slideShow/pic2.jpg'
 import pic3 from '../assets/slideShow/pic3.jpg'
 import pic4 from '../assets/slideShow/pic4.jpg'
 import API from '../api/api'
+import Slider from '../components/Slider'
+
 export default {
+  components: {
+    Slider
+  },
   created () {
     API.getNewList(this, {id: 1}).then((response) => {
       this.newsList = response.body
@@ -75,7 +76,21 @@ export default {
     return {
       newsList: [],
       boardList: [],
-      slider: [pic1, pic2, pic3, pic4],
+      sliders: {
+        time: 3000,
+        imgArr: [{
+          src: pic1,
+          title: 'i am pic1'
+        }, {
+          src: pic2,
+          title: 'i am pic2'
+        }, {
+          src: pic3,
+          title: 'i am pic3'
+        }, {
+          src: pic4,
+          title: 'i am pic4'
+        }]},
       productList: {}
     }
   },
