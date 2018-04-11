@@ -76,7 +76,8 @@
       "saleout": false
     }
   ],
-  "profile": {
-    "name": "typicode"
+  "login": {
+    "accout": "zhanghang",
+     "password":"1234"
   }
 }

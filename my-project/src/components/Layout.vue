@@ -4,11 +4,11 @@
       <el-header>
         <img  src="../assets/logo.png"/>
         <ul class="header-operations">
-          <li>登录</li>
+          <li @click="logShow = true">登录</li>
           <li class="nav-pie"></li>
-          <li>注册</li>
+          <li @click="regShow = true">注册</li>
           <li class="nav-pie"></li>
-          <li>关于</li>
+          <li @click="aboutShow = true">关于</li>
          </ul>
       </el-header>
       <el-main>
@@ -18,12 +18,38 @@
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
+    <my-dialog :isShow="logShow" :type="log" @on-close="closeLogDialog" >
+      <router-view name="log"></router-view>
+    </my-dialog>
+    <my-dialog :isShow="regShow" :type="log" @on-close="closeRegDialog" >
+      <router-view name="reg"></router-view>
+    </my-dialog>
 </div >
 </template>
 <script>
+import Dialog from './base/Dialog'
+
 export default {
+  created () {
+    // console.log(this.$route)
+  },
+  components: {
+    myDialog: Dialog
+  },
   data () {
     return {
+      logShow: false,
+      regShow: false,
+      log: ''
+
+    }
+  },
+  methods: {
+    closeLogDialog () {
+      this.logShow = false
+    },
+    closeRegDialog () {
+      this.regShow = false
     }
   }
 }

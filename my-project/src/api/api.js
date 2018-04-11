@@ -8,5 +8,8 @@ export default {
   },
   getBoardList  (context, params) {
     return context.$http.get(API_URL + 'boardList', {params})
+  },
+  getLogin (context, params) {
+    return context.$http.post(API_URL + 'login', {params})
   }
 }
