@@ -3,6 +3,7 @@
      <div class="index-left">
        <div class="index-left-block">
         <h2>全部产品</h2>
+        <img :src='imgsrc'/>
         <div v-for="product in productList" :key="product.key">
           <h3>{{ product.title}}</h3>
           <ul>
@@ -56,11 +57,21 @@ export default {
     Slider
   },
   created () {
-    API.getNewList(this, {id: 1}).then((response) => {
+    API.getNewList(this, {id: 1281}).then((response) => {
       this.newsList = response.body
+      // console.log(response.body)
     }, (err) => {
       console.log(err)
     })
+    // API.getImg(this, {j: Math.random()}).then((response) => {
+    //   // this.newsList = response.body
+    //   this.imgsrc = 'data:image/png;base64,' + btoa(
+    //     new Uint8Array(response.data)
+    //       .reduce((data, byte) => data + String.fromCharCode(byte), '')
+    //   )
+    // }, (err) => {
+    //   console.log(err)
+    // })
     API.getProductList(this, {id: 2}).then((response) => {
       this.productList = response.body
     }, (err) => {
@@ -76,6 +87,7 @@ export default {
     return {
       newsList: [],
       boardList: [],
+      imgsrc: '',
       sliders: {
         time: 3000,
         imgArr: [{

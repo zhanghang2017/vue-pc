@@ -11,7 +11,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api/':'http://localhost:3000/'  
+      '/api/': 'http://localhost:3000/',
+      '/CaptchaImgPass': 'http://192.168.1.112:8080/mysqlcms/'
     },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

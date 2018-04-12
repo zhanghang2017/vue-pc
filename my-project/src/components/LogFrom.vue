@@ -40,8 +40,10 @@ export default {
   methods: {
     login () {
       if (this.enClick) {
-        API.getLogin(this, {userAccount: this.userAccount, password: this.password}).then((reponse) => {
+        let user = {userAccount: this.userAccount, password: this.password}
+        API.getLogin(this, user).then((reponse) => {
           console.log(reponse.body)
+          this.$store.commit('onLogin', user)
         }, (_error) => {
           console.log(_error)
         })

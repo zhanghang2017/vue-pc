@@ -4,9 +4,11 @@
       <el-header>
         <img  src="../assets/logo.png"/>
         <ul class="header-operations">
-          <li @click="logShow = true">登录</li>
+          <li @click="logShow = true" v-if="!logStatus">登录</li>
+          <li v-if="logStatus" v-text="userAccount"></li>
           <li class="nav-pie"></li>
-          <li @click="regShow = true">注册</li>
+          <li  v-if="logStatus" >退出</li>
+          <li @click="regShow = true" v-if="!logStatus">注册</li>
           <li class="nav-pie"></li>
           <li @click="aboutShow = true">关于</li>
          </ul>
@@ -31,17 +33,27 @@ import Dialog from './base/Dialog'
 
 export default {
   created () {
-    // console.log(this.$route)
+    // console.log(this.$store.state)
   },
   components: {
     myDialog: Dialog
+  },
+  computed: {
+    userAccount () {
+      return this.$store.state.userAccount
+    },
+    password () {
+      return this.$store.state.password
+    },
+    logStatus () {
+      return this.$store.state.logStatus
+    }
   },
   data () {
     return {
       logShow: false,
       regShow: false,
       log: ''
-
     }
   },
   methods: {

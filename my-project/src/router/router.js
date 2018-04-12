@@ -5,6 +5,7 @@ export default {
   routes: [
     {
       path: '/',
+      name: 'index',
       components: {
         default: IndexPage,
         log: LogFrom,
